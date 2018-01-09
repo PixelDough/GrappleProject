@@ -10,4 +10,6 @@ if instance_exists(obj_player) {
 	target_y = obj_player.y + lengthdir_y(_dis, _dir);
 }
 
+if keyboard_check_pressed(vk_escape) game_end();
+
 global.time += 1;
