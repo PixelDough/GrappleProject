@@ -6,6 +6,8 @@ vy = 0;
 grav = 0.25;
 grounded = true;
 
+tongue = noone;
+
 range = 64;
 
 enum player {
