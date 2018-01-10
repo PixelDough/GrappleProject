@@ -6,16 +6,19 @@
 vx = 0;
 vy = 0;
 
-if !instance_exists(obj_tongue) {
-	var _tongue = instance_create_layer(x, y-8, "Instances", obj_tongue);
-	_tongue.direction = point_direction(x, y-8, obj_game.target_x, obj_game.target_y);
-	_tongue.speed = 5;
-}
-
-if point_distance(x, y-8, obj_tongue.x, obj_tongue.y) > range {
-	instance_destroy(obj_tongue);
-}
-
-if !instance_exists(obj_tongue) {
+if instance_exists(obj_tongue) {
+	if point_distance(x, y-8, obj_tongue.x, obj_tongue.y) > range {
+		instance_destroy(obj_tongue);
+	}
+	with obj_tongue {
+		if place_meeting(x, y, obj_wall) {
+			other.x = round((x-hspeed)/8)*8;
+			other.y = round((y-vspeed)/8)*8;
+			instance_destroy();
+			//speed = 0;
+			other.ACTION = player.stick;
+		}
+	}
+} else {
 	ACTION = player.idle;
 }
