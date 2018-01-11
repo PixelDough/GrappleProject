@@ -12,22 +12,28 @@ if instance_exists(obj_player) {
 
 if keyboard_check_pressed(vk_escape) game_end();
 
+var _cam_x;
+var _cam_y;
+var _cam_w = camera_get_view_width(view_camera);;
+var _cam_h = camera_get_view_height(view_camera);;
+
 //Move Camera
 if instance_exists(obj_player) {
-	var _cam_w = camera_get_view_width(view_camera);
-	var _cam_h = camera_get_view_height(view_camera);
-	var _cam_x = floor(obj_player.x/_cam_w)*_cam_w;
-	var _cam_y = floor(obj_player.y/_cam_h)*_cam_h;
+	_cam_x = floor(obj_player.x/_cam_w)*_cam_w;
+	_cam_y = floor(obj_player.y/_cam_h)*_cam_h;
 	camera_set_view_pos(view_camera, _cam_x, _cam_y);
 }
 
 //Deactivate unneded walls
 if instance_exists(obj_player) {
 	with obj_player {
-		instance_deactivate_region(x-100, y-100, 200, 200, false, true);
-		instance_activate_region(x-100, y-100, 200, 200, true);
+		_cam_x = floor(obj_player.x/_cam_w)*_cam_w;
+		_cam_y = floor(obj_player.y/_cam_h)*_cam_h;
+		instance_deactivate_region(_cam_x, _cam_y, _cam_w, _cam_h, false, true);
+		instance_activate_region(_cam_x, _cam_y, _cam_w, _cam_h, true);
 		instance_activate_layer("META");
 		instance_activate_layer("Background");
+		instance_activate_object(obj_tongue);
 	}
 }
 

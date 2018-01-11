@@ -22,10 +22,12 @@ if ACTION != player.tongue {
 		    while(!place_meeting(x+sign(vx),y,obj_wall)) {
 		        x += sign(vx);
 		    }
-			if u_p and !place_meeting(x,y+vy,obj_wall) {
-				vy = -jh;
-				vx = spMax * (sign(-vx));
-			} else vx = 0;
+			//Wall Jump
+			//if u_p and !place_meeting(x,y+vy,obj_wall) {
+			//	vy = -jh;
+			//	vx = spMax * (sign(-vx));
+			//} else 
+			vx = 0;
 		}
 		if (place_meeting(x,y+vy,obj_wall)) {
 		    while(!place_meeting(x,y+sign(vy),obj_wall)) {
@@ -51,5 +53,8 @@ if ACTION != player.tongue {
 
 //Die
 if y-8 > room_height room_restart();
+
+if mouse_wheel_up() range += 8;
+if mouse_wheel_down() range -= 8;
 
 event_user(ACTION);
